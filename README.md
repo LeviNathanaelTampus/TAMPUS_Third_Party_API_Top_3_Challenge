@@ -12,15 +12,6 @@ Open `index.html` directly in a browser, or serve the folder with any static ser
 npx serve .
 ```
 
-## Deploy on Render
-
-1. Push this repository to GitHub.
-2. In Render, create a **Static Site** and connect the repo.
-3. Render should detect `render.yaml` automatically. If not, use:
-   - **Build command:** (leave blank)
-   - **Publish directory:** `.`
-4. Deploy. There are no environment variables to set.
-
 ## How search works
 
 - **By name** — type a full or partial name (e.g. `char` finds Charizard, Charmander, Charmeleon).
