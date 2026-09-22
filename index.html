@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Levi's Pocket Dex</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="field-backdrop" aria-hidden="true">
+      <div class="sky">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+        <div class="cloud cloud-4"></div>
+      </div>
+      <div class="ground"></div>
+    </div>
+
+    <main class="container">
+      <div class="menu-panel">
+        <header class="banner">
+          <h1>Levi's Pocket Dex</h1>
+          <p class="subtitle">Look up any Pokémon and see its card — type, stats, and what it's weak or strong against.</p>
+        </header>
+
+        <form id="search-form" class="search-row">
+          <input
+            id="search-input"
+            type="text"
+            placeholder="Search a Pokémon name (e.g. charizard)"
+            aria-label="Pokémon name"
+            autocomplete="off"
+          />
+          <select id="type-select" aria-label="Filter by element">
+            <option value="">Any element</option>
+          </select>
+          <button type="submit">Search</button>
+        </form>
+
+        <section class="quickpicks-row" aria-label="Fan favorites">
+          <span class="quickpicks-label">Fan favorites:</span>
+          <button type="button" data-pick="pikachu">Pikachu</button>
+          <button type="button" data-pick="charizard">Charizard</button>
+          <button type="button" data-pick="gyarados">Gyarados</button>
+          <button type="button" data-pick="mewtwo">Mewtwo</button>
+        </section>
+
+        <p id="status" class="status">Type a name, pick an element, or tap a fan favorite to begin.</p>
+      </div>
+
+      <section id="results" class="results" aria-live="polite"></section>
+    </main>
+
+    <script src="pokemon-types.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

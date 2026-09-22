@@ -1,0 +1,475 @@
+@import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Mono:wght@400;700&display=swap");
+
+:root {
+  --sky-top: #5c9fe0;
+  --sky-bottom: #bfe6fe;
+  --grass-light: #5cb668;
+  --grass-dark: #438a4e;
+  --panel-cream: #fdf6e3;
+  --panel-border-outer: #2c4a86;
+  --panel-border-inner: #a8d8f0;
+  --card-gold: #e7b94c;
+  --card-cream: #fff6de;
+  --ink: #221f1a;
+  --accent-red: #d6473f;
+  --accent-green: #2f7d45;
+  --muted: #4a5a3c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Space Mono", monospace;
+  color: var(--ink);
+  position: relative;
+}
+
+/* --- Overworld backdrop: sky + horizon + grass, like an old handheld field --- */
+
+.field-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.field-backdrop .sky {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 46%;
+  background: linear-gradient(to bottom, var(--sky-top), var(--sky-bottom));
+  overflow: hidden;
+}
+
+.field-backdrop .ground {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 54%;
+  background-color: var(--grass-light);
+  background-image: repeating-linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.07) 0 6px,
+      transparent 6px 14px
+    ),
+    radial-gradient(circle, rgba(0, 0, 0, 0.16) 3px, transparent 4px);
+  background-size: auto, 28px 28px;
+  border-top: 6px solid var(--grass-dark);
+  box-shadow: 0 -10px 24px rgba(0, 0, 0, 0.15) inset;
+}
+
+.cloud {
+  position: absolute;
+  background: #fff;
+  border-radius: 999px;
+  opacity: 0.95;
+}
+
+.cloud::before,
+.cloud::after {
+  content: "";
+  position: absolute;
+  background: #fff;
+  border-radius: 999px;
+}
+
+.cloud-1 {
+  top: 8%;
+  left: 8%;
+  width: 90px;
+  height: 30px;
+}
+.cloud-1::before {
+  width: 46px;
+  height: 46px;
+  top: -22px;
+  left: 10px;
+}
+.cloud-1::after {
+  width: 34px;
+  height: 34px;
+  top: -14px;
+  left: 50px;
+}
+
+.cloud-2 {
+  top: 14%;
+  left: 38%;
+  width: 70px;
+  height: 24px;
+}
+.cloud-2::before {
+  width: 36px;
+  height: 36px;
+  top: -16px;
+  left: 8px;
+}
+.cloud-2::after {
+  width: 26px;
+  height: 26px;
+  top: -10px;
+  left: 38px;
+}
+
+.cloud-3 {
+  top: 6%;
+  left: 68%;
+  width: 100px;
+  height: 32px;
+}
+.cloud-3::before {
+  width: 50px;
+  height: 50px;
+  top: -24px;
+  left: 14px;
+}
+.cloud-3::after {
+  width: 36px;
+  height: 36px;
+  top: -14px;
+  left: 58px;
+}
+
+.cloud-4 {
+  top: 20%;
+  left: 85%;
+  width: 60px;
+  height: 20px;
+}
+.cloud-4::before {
+  width: 28px;
+  height: 28px;
+  top: -12px;
+  left: 6px;
+}
+.cloud-4::after {
+  width: 20px;
+  height: 20px;
+  top: -8px;
+  left: 30px;
+}
+
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* --- Menu panel: classic RPG dialogue-box double border --- */
+
+.menu-panel {
+  background: var(--panel-cream);
+  border: 5px solid var(--panel-border-outer);
+  outline: 3px solid var(--panel-border-inner);
+  outline-offset: -10px;
+  border-radius: 10px;
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 10px 0 rgba(0, 0, 0, 0.25), 0 14px 28px rgba(0, 0, 0, 0.35);
+}
+
+.banner {
+  margin-bottom: 1rem;
+}
+
+.banner h1 {
+  font-family: "Press Start 2P", monospace;
+  font-size: 1.3rem;
+  margin: 0 0 0.85rem;
+  color: var(--panel-border-outer);
+  letter-spacing: 1px;
+  line-height: 1.5;
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  max-width: 60ch;
+  line-height: 1.5;
+}
+
+.search-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+input,
+select,
+button {
+  font: inherit;
+  border-radius: 6px;
+  border: 2px solid var(--panel-border-outer);
+  background: #fff;
+  color: var(--ink);
+  padding: 0.7rem 1rem;
+}
+
+input {
+  flex: 1 1 260px;
+}
+
+select {
+  min-width: 160px;
+}
+
+button {
+  cursor: pointer;
+  background: var(--card-gold);
+  color: var(--ink);
+  font-weight: bold;
+  transition: transform 0.1s ease;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.3);
+}
+
+button:hover,
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--accent-red);
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
+}
+
+.quickpicks-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.1rem;
+}
+
+.quickpicks-label {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.quickpicks-row button {
+  background: #fff;
+  color: var(--panel-border-outer);
+  border: 2px solid var(--panel-border-outer);
+  padding: 0.4rem 0.9rem;
+  font-size: 0.8rem;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.quickpicks-row button:hover {
+  border-color: var(--accent-red);
+  color: var(--accent-red);
+}
+
+.status {
+  min-height: 1.5rem;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.status.loading {
+  color: #a3790f;
+}
+
+.status.error {
+  color: var(--accent-red);
+}
+
+.status.success {
+  color: var(--accent-green);
+}
+
+.results {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.empty {
+  grid-column: 1 / -1;
+  color: var(--panel-cream);
+  background: rgba(34, 31, 26, 0.55);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+/* --- Retro trading card --- */
+
+.poke-card {
+  --type-color: #999;
+  background: var(--card-cream);
+  color: var(--ink);
+  border: 6px solid var(--type-color);
+  border-radius: 14px;
+  padding: 0.85rem;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.3), 0 8px 14px rgba(0, 0, 0, 0.35);
+}
+
+.poke-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.5rem;
+}
+
+.poke-name {
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.poke-hp {
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.7rem;
+  color: var(--accent-red);
+}
+
+.poke-art {
+  background: repeating-linear-gradient(45deg, #eee 0 10px, #e2e2e2 10px 20px);
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 0.6rem;
+}
+
+.poke-art img {
+  max-width: 100%;
+  max-height: 100%;
+  image-rendering: pixelated;
+}
+
+.poke-types {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.type-badge {
+  font-size: 0.65rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.poke-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 0.7rem;
+  padding-bottom: 0.7rem;
+  border-bottom: 2px dashed rgba(34, 31, 26, 0.25);
+}
+
+.stat-row {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr 2rem;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.65rem;
+}
+
+.stat-track {
+  background: rgba(34, 31, 26, 0.15);
+  border-radius: 999px;
+  height: 6px;
+  overflow: hidden;
+}
+
+.stat-fill {
+  height: 100%;
+  background: var(--type-color);
+}
+
+.stat-value {
+  text-align: right;
+}
+
+.poke-meter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.meter-row {
+  display: grid;
+  grid-template-columns: 5.2rem 1fr;
+  align-items: start;
+  gap: 0.5rem;
+  font-size: 0.65rem;
+}
+
+.meter-label {
+  font-weight: bold;
+  padding-top: 0.15rem;
+}
+
+.meter-row.weak .meter-label {
+  color: var(--accent-red);
+}
+
+.meter-row.resist .meter-label,
+.meter-row.strong .meter-label {
+  color: var(--accent-green);
+}
+
+.meter-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.meter-badge {
+  color: #fff;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.62rem;
+  white-space: nowrap;
+}
+
+.meter-none {
+  color: rgba(34, 31, 26, 0.5);
+}
+
+.meter-error {
+  font-size: 0.7rem;
+  color: var(--accent-red);
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  .banner h1 {
+    font-size: 1rem;
+  }
+
+  .menu-panel {
+    padding: 1.1rem 1.2rem;
+  }
+}

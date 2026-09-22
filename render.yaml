@@ -1,0 +1,5 @@
+services:
+  - type: web
+    name: pocket-dex-retro-search
+    runtime: static
+    staticPublishPath: .
