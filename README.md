@@ -4,14 +4,6 @@ A single-page site that searches [PokéAPI](https://pokeapi.co/) for Pokémon an
 
 PokéAPI is free and public — no API key, no build step, no server-side secret. That means this project is just static files.
 
-## Run locally
-
-Open `index.html` directly in a browser, or serve the folder with any static server, e.g.:
-
-```bash
-npx serve .
-```
-
 ## How search works
 
 - **By name** — type a full or partial name (e.g. `char` finds Charizard, Charmander, Charmeleon).
